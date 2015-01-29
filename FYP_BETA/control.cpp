@@ -8,7 +8,7 @@
 #include <QPen>
 #include <cstdio>
 
-
+//change
 
 using namespace std;
 //control::control(QStandardItemModel *model)
