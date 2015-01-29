@@ -20,14 +20,25 @@ control::control(QStandardItemModel *model)
  count =0;
  itemsCount=0;
  smodel=model;
- db=QSqlDatabase::addDatabase("QSQLITE");
- db.setDatabaseName("D:/FYP/db/FYP.sqlite");
+ //db=QSqlDatabase::addDatabase("QSQLITE");
+ //db.setDatabaseName("D:/FYP/db/FYP.sqlite");
+ db=QSqlDatabase::addDatabase("QMYSQL");
+ db.setDatabaseName("C:/Users/11060204/FYP_BETA/amazon.sql");
+ db.setHostName("localhost");
+ db.setDatabaseName("db2");
+ db.setUserName("root");
+ db.setPassword("");
  activeItem= new QStandardItem("");
  addFlag=true;
  //query = new QSqlQuery(*db);
  if(db.open()){
 
      qDebug()<< "ok";
+ }
+ else
+ {
+     QMessageBox::critical(0, QObject::tr("Database Error"),
+                                 db.lastError().text());
  }
 }
 
@@ -73,7 +84,7 @@ void control::openFile(){
         //fonts.append(line);
       }
     qDebug() << itemsCount;
-   createStatistics();
+   //createStatistics();
    file.close();
 
 //smodel->setStringList(fonts);
@@ -294,7 +305,7 @@ QString temp="";
 }
 void control::addDBRecord(){
     QSqlQuery query;
-        query.prepare("INSERT INTO main.amazon (id, title, price, userID, uName, helpfulness , score , time , summary , text) "
+        query.prepare("INSERT INTO amazon (id, title, price, userID, uName, helpfulness , score , time , summary , text) "
                       "VALUES (:id, :title, :price, :userID, :uName, :helpfulness , :score , :time , :summary , :text) ");
 
             query.bindValue(":id", stringVector.at(0));
