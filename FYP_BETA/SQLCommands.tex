@@ -1,0 +1,10 @@
+QSqlQuery query;
+
+//creation
+query.prepare("CREATE TABLE fromqt (id INT, data VARCHAR(100))");
+
+//dropping db
+query.prepare("DROP DATABASE fromqt");
+query.prepare("DROP TABLE fromqt");
+//deleteing records
+query.prepare("DELETE FROM amazon");
